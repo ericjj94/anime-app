@@ -19,9 +19,9 @@ const AnimeList = () => {
     getAnimeList();
   }, []);
 
-  useEffect(()=>{
-    getAnimeList();
-  },[currentPage])
+  // useEffect(()=>{
+  //   getAnimeList();
+  // },[currentPage])
 
   if (animeList && animeList.length) {
     return (

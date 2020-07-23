@@ -2,6 +2,10 @@ import React from "react";
 
 const AnimeCard = ({ anime }) => {
 
+  if(!anime || (anime && !anime.length)) {
+    return null;
+  } 
+
     function formatDescription(description){
         if(!description) {
             return 'no description available'

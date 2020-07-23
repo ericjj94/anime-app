@@ -13,6 +13,7 @@ yarn-error.log*
 /.changelog
 .npm/
 yarn.lock
+*.log
 
 
 # OS X

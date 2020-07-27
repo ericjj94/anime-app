@@ -27,11 +27,9 @@ const AnimeList = () => {
     return (
       <div className="container">
         <div className="row">
-          <div className="cards">
           {animeList.map((anime) => {
             return <AnimeCard key={anime.id} anime={anime}/>;
           })}
-          </div>
         </div>
       </div>
     );

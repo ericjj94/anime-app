@@ -19,7 +19,7 @@ process.exit(-1);
 * @public
 */
 exports.connect = () => {
-    mongoose.connect(process.env.URL, {
+    mongoose.connect(process.env.MONGO_DB_URL, {
         useCreateIndex: true,
         keepAlive: 1,
         useNewUrlParser: true,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../AnimeCard/AnimeCard";
+import { act } from 'react-dom/test-utils';
 
 const AnimeList = () => {
   const [state, setState ] = useState({ animeList: [], currentPage: 1 });
@@ -9,19 +10,20 @@ const AnimeList = () => {
     fetch(`http://localhost:8080/services/getAnimes?currentPage=${currentPage}`)
       .then((res) => res.json())
       .then((response) => {
-        setState({ ...state, animeList: response && response.data });
+        if(response && response.data){ 
+          console.log("getAnimeList -> response.data", response.data)
+          setState({ ...state, animeList: response.data });
+        }
       })
       .catch((err) => console.log("err", err));
   }
   
 
   useEffect(() => {
-    getAnimeList();
+    if(animeList && !animeList.length){
+      getAnimeList();
+    }
   }, []);
-
-  // useEffect(()=>{
-  //   getAnimeList();
-  // },[currentPage])
 
   if (animeList && animeList.length) {
     return (

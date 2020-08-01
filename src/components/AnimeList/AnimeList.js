@@ -28,7 +28,7 @@ const AnimeList = () => {
       <div className="container">
         <div className="row">
           {animeList.map((anime) => {
-            return <AnimeCard key={anime.id} anime={anime}/>;
+            return <AnimeCard key={anime._id} anime={anime}/>;
           })}
         </div>
       </div>

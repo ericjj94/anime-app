@@ -1,6 +1,9 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 
-const AnimeCard = ({ anime }) => {
+const AnimeCard = (props) => {
+  const { anime }= props;
+
   if(!anime) {
     return null;
   }
@@ -14,8 +17,10 @@ const AnimeCard = ({ anime }) => {
         return description
     }
 
-    function handleClick(anime) {
-      console.log('anime',anime);
+    function handleClick({_id}) {
+      console.log('anime',_id);
+      props.history.push(`/anime/${_id}`)
+
     }
 
   return (
@@ -36,4 +41,4 @@ const AnimeCard = ({ anime }) => {
     </div>
   );
 };
-export default AnimeCard;
+export default withRouter(AnimeCard);

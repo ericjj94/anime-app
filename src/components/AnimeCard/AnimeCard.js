@@ -15,8 +15,8 @@ const AnimeCard = ({ anime }) => {
     }
 
   return (
-    <div className="col-12 col-md-6 col-lg-4" style={{margin: '5px 0px'}}>
-      <div className="card" style={{height: '590px'}}>
+    <div className="col-md-4" style={{margin: '5px 0px'}}>
+      <div className="card" style={{width: '100%', height: 'auto' }}>
         <img className="card-img-top" src={anime.img} style={{height: '300px'}} />
         <div className="card-body">
           <h4 className="card-title">{anime.name}</h4>

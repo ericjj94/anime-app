@@ -5,24 +5,22 @@ const AnimeList = () => {
   const [state, setState ] = useState({ animeList: [], currentPage: 1 });
   const { animeList,currentPage } = state;
 
-  function getAnimeList() {
-    fetch(`http://localhost:8080/services/animes?currentPage=${currentPage}`)
-      .then((res) => res.json())
-      .then((response) => {
-        if(response && response.data){ 
-          console.log("getAnimeList -> response.data", response.data)
-          setState({ ...state, animeList: response.data });
-        }
-      })
-      .catch((err) => console.log("err", err));
-  }
-  
-
   useEffect(() => {
     if(animeList && !animeList.length){
+      const getAnimeList = () => {
+        fetch(`http://localhost:8080/services/animes?currentPage=${currentPage}`)
+          .then((res) => res.json())
+          .then((response) => {
+            if(response && response.data){ 
+              console.log("getAnimeList -> response.data", response.data)
+              setState({ ...state, animeList: response.data });
+            }
+          })
+          .catch((err) => console.log("err", err));
+      }
       getAnimeList();
     }
-  }, []);
+  }, [animeList]);
 
   if (animeList && animeList.length) {
     return (

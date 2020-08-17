@@ -1,7 +1,7 @@
 const initialState = {
     animeList: []
 }
-const animeListReducer = (state= initialState,action) => {
+const searchReducer = (state= initialState,action) => {
     switch (action.type) {
         case 'SET_ANIME_LIST': {
             return {
@@ -14,4 +14,4 @@ const animeListReducer = (state= initialState,action) => {
     }
 
 }
-export default animeListReducer;
+export default searchReducer;

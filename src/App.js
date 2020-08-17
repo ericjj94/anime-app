@@ -1,11 +1,17 @@
 import React from 'react';
-import AnimeList from './components/AnimeList/AnimeList'
+import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+
+import AnimeList from './components/AnimeList/AnimeList';
+import AnimePage from './components/AnimePage/AnimePage.js';
 
 const App= () => {
     return (
-      <div>
-        <AnimeList />
-      </div>
+      <Router>
+        <Switch>
+          <Route path='/anime/:id' component={AnimePage} />
+          <Route exact path="/" component={AnimeList} />
+        </Switch>
+      </Router>
     );
 
 } 

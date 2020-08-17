@@ -1,6 +1,10 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
+import AnimeRating from '../AnimeRating/AnimeRating';
 
-const AnimeCard = ({ anime }) => {
+const AnimeCard = (props) => {
+  const { anime, showDetails }= props;
+
   if(!anime) {
     return null;
   }
@@ -14,22 +18,28 @@ const AnimeCard = ({ anime }) => {
         return description
     }
 
+    function handleClick({_id}) {
+      console.log('anime',_id);
+      props.history.push(`/anime/${_id}`)
+
+    }
+
   return (
-    <div className="col-12 col-md-6 col-lg-4" style={{margin: '5px 0px'}}>
-      <div className="card" style={{height: '590px'}}>
-        <img className="card-img-top" src={anime.img} style={{height: '300px'}} />
+    <div className={showDetails ? 'col-md-12': 'col-md-4'} style={{margin: '5px 0px'}}>
+      <div className="card" style={{width: '100%', height: 'auto' }} onClick={()=>{handleClick(anime)}}>
+        <img className="card-img-top" src={anime.img} style={{height: '300px'}} alt="anime-list-thumbs"/>
         <div className="card-body">
           <h4 className="card-title">{anime.name}</h4>
           {/* TODO: format the string in backend */}
-          <p>
+          {!showDetails ? <p>
               {formatDescription(anime.description)}
             {anime.description.length > 150
               ? `${anime.description.slice(0, 150)}...`
               : anime.description}
-          </p>
+          </p>: <AnimeRating rating={anime.rating}/>}
         </div>
       </div>
     </div>
   );
 };
-export default AnimeCard;
+export default withRouter(AnimeCard);

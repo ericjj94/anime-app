@@ -8,8 +8,8 @@ const AnimePage = (props) => {
     const { anime }= props;
     
     useEffect(()=> {
-        if(anime && !Object.keys(anime).length) {
-            const id = props.match.params.id;
+        const id = props.match.params.id;
+        if(id) {
             props.getAnimeDetails(id);
         }
     },[anime])

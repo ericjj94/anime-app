@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+
 import AnimeCard from '../AnimeCard/AnimeCard';
+import { getAnimeDetails } from '../../actions/animeListActions';
 
 const AnimePage = (props) => {
-    const [state,setState] = useState({anime: {} })
-    const { anime }= state;
+    const { anime }= props;
     
     useEffect(()=> {
         if(anime && !Object.keys(anime).length) {
-            const getAnimeDetails = () => {
-                const id = props.match.params.id;
-                fetch(`http://localhost:8080/services/anime?id=${id}`,{ method: 'GET' })
-                .then(res=> res.json())
-                .then(response=> {
-                    setState({...state, anime: response && response.data})
-                });
-            }
-            getAnimeDetails();
+            const id = props.match.params.id;
+            props.getAnimeDetails(id);
         }
     },[anime])
 
@@ -47,4 +42,7 @@ const AnimePage = (props) => {
     }
     return null;
 };
-export default AnimePage;
+const mapStateToProps = state => ({
+    anime: state.animeReducer.anime
+})
+export default connect(mapStateToProps, { getAnimeDetails })(AnimePage);

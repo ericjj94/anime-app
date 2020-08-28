@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSelector } from "react";
+import { connect } from 'react-redux';
 import AnimeCard from "../AnimeCard/AnimeCard";
+import { getAnimeList } from '../../actions/animeListActions';
 
-const AnimeList = () => {
-  const [state, setState ] = useState({ animeList: [], currentPage: 1 });
-  const { animeList,currentPage } = state;
-
+const AnimeList = ({animeList, getAnimeList}) => {
+  const [state, setState ] = useState({ currentPage: 1 });
+  const { currentPage } = state;
+  
   useEffect(() => {
-    if(animeList && !animeList.length){
-      const getAnimeList = () => {
-        fetch(`http://localhost:8080/services/animes?currentPage=${currentPage}`)
-          .then((res) => res.json())
-          .then((response) => {
-            if(response && response.data){ 
-              console.log("getAnimeList -> response.data", response.data)
-              setState({ ...state, animeList: response.data });
-            }
-          })
-          .catch((err) => console.log("err", err));
-      }
-      getAnimeList();
+    if(animeList && !animeList.length) {
+      getAnimeList()
     }
   }, [animeList]);
 
@@ -35,5 +26,8 @@ const AnimeList = () => {
   }
   return null;
 };
-export default AnimeList;
+const mapStateToProps = state => ({
+  animeList: state.searchReducer.animeList
+})
+export default connect(mapStateToProps,{getAnimeList})(AnimeList);
 

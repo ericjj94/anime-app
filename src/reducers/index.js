@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import animeListReducer from './animeListReducer';
+import searchReducer from './searchReducer';
+import animeReducer from './animeReducer';
 
 const rootReducer = combineReducers({
-    animeListReducer
+    searchReducer,
+    animeReducer
 });
 export default rootReducer;

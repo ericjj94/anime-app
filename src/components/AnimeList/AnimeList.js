@@ -9,7 +9,7 @@ const AnimeList = ({animeList, getAnimeList}) => {
   
   useEffect(() => {
     if(animeList && !animeList.length) {
-      getAnimeList()
+      getAnimeList(currentPage)
     }
   }, [animeList]);
 

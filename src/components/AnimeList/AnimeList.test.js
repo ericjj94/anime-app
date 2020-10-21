@@ -1,25 +1,26 @@
 import chai, { expect } from 'chai';
-import React, { Component } from 'react';
+import React from 'react';
 import fetchMock from 'fetch-mock';
-import { mount } from '../../../enzyme';
+import { mount } from '../../helpers/helpers';
 
 import AnimeList from './AnimeList';
 
-// TODO: fix the warning for act(....) when making APi call from test.
-
 describe('AnimeList Testing', () => {
+
+  afterEach(() => {
+    fetchMock.restore();
+  })
     it('Should call the API to fetch animeList and should not render anything if not present', done => {
-        const url = 'http://localhost:8080/services/getAnimes?currentPage=1';
-        fetchMock.get(url,[]);
-        const wrapper  = mount(<AnimeList />);
+        const url = 'http://localhost:8080/services/animes?currentPage=1';
+        fetchMock.get(url,{data:[]});
+        const { component } = mount(<AnimeList />, {searchReducer: {animeList:[]}});
         expect(fetchMock.calls(url).length).to.equal(1);
-        expect(wrapper.isEmptyRender()).to.equal(true);
-        fetchMock.restore();
+        expect(component.isEmptyRender()).to.equal(true);
         done();
     });
 
     it('Should call the API to fetch animeList and should render AnimeCard', done => {
-        const url = 'http://localhost:8080/services/getAnimes?currentPage=1';
+        const url = 'http://localhost:8080/services/animes?currentPage=1';
         const fakeResponse = {
             "code": 200,
             "data": [
@@ -38,12 +39,10 @@ describe('AnimeList Testing', () => {
           }
           
         fetchMock.get(url,fakeResponse);
-        const wrapper  = mount(<AnimeList />);
+        const { component }  = mount(<AnimeList />, { searchReducer: {animeList:[]}} );
             setImmediate(() => {
-            wrapper.update();
-            expect(fetchMock.calls(url).length).to.equal(1);
-            expect(wrapper.find('AnimeCard').length).to.equal(1)
-            fetchMock.restore();
+            component.update();
+            expect(component.find('AnimeCard').length).to.equal(1)
             done();
         });
     });

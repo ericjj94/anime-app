@@ -19,9 +19,7 @@ const AnimeCard = (props) => {
     }
 
     function handleClick({_id}) {
-      console.log('anime',_id);
       props.history.push(`/anime/${_id}`)
-
     }
 
   return (
@@ -32,7 +30,7 @@ const AnimeCard = (props) => {
           <h4 className="card-title">{anime.name}</h4>
           {/* TODO: format the string in backend */}
           {!showDetails ? <p>
-              {formatDescription(anime.description)}
+              {/* {formatDescription(anime.description)} */}
             {anime.description.length > 150
               ? `${anime.description.slice(0, 150)}...`
               : anime.description}

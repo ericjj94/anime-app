@@ -1,0 +1,11 @@
+To run mongoDb
+    1. Open cmd and type in 
+        a. mongo
+        b. mongod
+
+To run server
+    1 . node backend/server
+    
+    
+To run Frontend
+    1. npm run start
